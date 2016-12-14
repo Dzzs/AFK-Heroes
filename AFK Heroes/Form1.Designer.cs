@@ -52,10 +52,12 @@
             this.dlcLabel = new System.Windows.Forms.Label();
             this.dlcButton = new System.Windows.Forms.Button();
             this.trollLabel = new System.Windows.Forms.Label();
+            this.dismissDlcBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).BeginInit();
             this.SuspendLayout();
             // 
             // heroBox1
@@ -162,7 +164,7 @@
             // 
             this.enemyNameLabel.AutoSize = true;
             this.enemyNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enemyNameLabel.Location = new System.Drawing.Point(463, 76);
+            this.enemyNameLabel.Location = new System.Drawing.Point(468, 57);
             this.enemyNameLabel.Name = "enemyNameLabel";
             this.enemyNameLabel.Size = new System.Drawing.Size(114, 20);
             this.enemyNameLabel.TabIndex = 9;
@@ -172,7 +174,7 @@
             // 
             this.enemyHealthLabel.AutoSize = true;
             this.enemyHealthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enemyHealthLabel.Location = new System.Drawing.Point(475, 105);
+            this.enemyHealthLabel.Location = new System.Drawing.Point(478, 77);
             this.enemyHealthLabel.Name = "enemyHealthLabel";
             this.enemyHealthLabel.Size = new System.Drawing.Size(85, 16);
             this.enemyHealthLabel.TabIndex = 10;
@@ -298,12 +300,22 @@
     "rg will work as well.";
             this.trollLabel.Visible = false;
             // 
+            // dismissDlcBox
+            // 
+            this.dismissDlcBox.Location = new System.Drawing.Point(798, 398);
+            this.dismissDlcBox.Name = "dismissDlcBox";
+            this.dismissDlcBox.Size = new System.Drawing.Size(42, 34);
+            this.dismissDlcBox.TabIndex = 23;
+            this.dismissDlcBox.TabStop = false;
+            this.dismissDlcBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dismissDlcBox_MouseDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
+            this.Controls.Add(this.dismissDlcBox);
             this.Controls.Add(this.trollLabel);
             this.Controls.Add(this.dlcButton);
             this.Controls.Add(this.dlcLabel);
@@ -334,6 +346,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -364,6 +377,7 @@
         private System.Windows.Forms.Label dlcLabel;
         private System.Windows.Forms.Button dlcButton;
         private System.Windows.Forms.Label trollLabel;
+        private System.Windows.Forms.PictureBox dismissDlcBox;
     }
 }
 

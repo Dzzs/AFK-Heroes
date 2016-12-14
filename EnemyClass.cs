@@ -2,7 +2,7 @@
 
 namespace AFK_Heroes
 {
-    public class EnemyClass
+    public class EnemyClass  // Currently unused
     {
         private int dps = 1;
         private string name = "Default";

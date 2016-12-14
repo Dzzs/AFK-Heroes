@@ -302,5 +302,12 @@ namespace AFK_Heroes
                 dlcLabel.Show();
             });
         }
+
+        private void dismissDlcBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            dlcButton.Hide();
+            dlcLabel.Hide();
+            trollLabel.Hide();
+        }
     }
 }
