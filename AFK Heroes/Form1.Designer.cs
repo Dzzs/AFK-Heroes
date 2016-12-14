@@ -53,6 +53,7 @@
             this.dlcButton = new System.Windows.Forms.Button();
             this.trollLabel = new System.Windows.Forms.Label();
             this.dismissDlcBox = new System.Windows.Forms.PictureBox();
+            this.enemyHealthBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
@@ -309,12 +310,20 @@
             this.dismissDlcBox.TabStop = false;
             this.dismissDlcBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dismissDlcBox_MouseDown);
             // 
+            // enemyHealthBar
+            // 
+            this.enemyHealthBar.Location = new System.Drawing.Point(411, 105);
+            this.enemyHealthBar.Name = "enemyHealthBar";
+            this.enemyHealthBar.Size = new System.Drawing.Size(202, 10);
+            this.enemyHealthBar.TabIndex = 24;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
+            this.Controls.Add(this.enemyHealthBar);
             this.Controls.Add(this.dismissDlcBox);
             this.Controls.Add(this.trollLabel);
             this.Controls.Add(this.dlcButton);
@@ -378,6 +387,7 @@
         private System.Windows.Forms.Button dlcButton;
         private System.Windows.Forms.Label trollLabel;
         private System.Windows.Forms.PictureBox dismissDlcBox;
+        private System.Windows.Forms.ProgressBar enemyHealthBar;
     }
 }
 

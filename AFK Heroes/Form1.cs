@@ -45,6 +45,18 @@ namespace AFK_Heroes
             MainGameThread.Start();
         }
 
+        private void EnemyHealthBarUpdater(int fullHP, int currentHP)
+        {
+            int incAmount = fullHP - currentHP;
+
+            Invoke((MethodInvoker)delegate
+            {
+                enemyHealthBar.Maximum = fullHP;
+                enemyHealthBar.Value = fullHP;
+                enemyHealthBar.Increment(-incAmount);
+            });
+        }
+
         private void UpdateUIFromThread(int hDps1, int hDps2, int hDps3, string eName, int eHP, int coinCount, int h1Level, int h2Level, int h3Level, int h1Cost, int h2Cost, int h3Cost, int currentLvl)
         {
             Invoke((MethodInvoker)delegate
@@ -70,6 +82,7 @@ namespace AFK_Heroes
         {
             string enemyName = "Default";
             int currentEnemyHealth = FindEnemyHealth();
+            int startingHealth = FindEnemyHealth();
 
             while (true)
             {
@@ -95,6 +108,7 @@ namespace AFK_Heroes
                 UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, FindEnemyHealth(), currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2),FindUpgradeCost(3), currentRound);
 
                 currentEnemyHealth = FindEnemyHealth();
+                startingHealth = FindEnemyHealth();
 
                 isCombat = true;
 
@@ -109,7 +123,7 @@ namespace AFK_Heroes
                         currentEnemyHealth = 0;
                         isCombat = false;
                     }
-
+                    EnemyHealthBarUpdater(startingHealth, currentEnemyHealth);
                     UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, currentEnemyHealth, currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2), FindUpgradeCost(3), currentRound);
                     Thread.Sleep(250);
                 }
@@ -216,39 +230,6 @@ namespace AFK_Heroes
             return enemyHP;
         }
 
-        private void CombatStart(bool isABoss, int health, int dpsOne, int dpsTwo = 0, int dpsThree = 0, int dpsFour = 0, int dpsFive = 0)
-        {
-            int bossHP = health;
-            int totalDPS = dpsOne + dpsTwo + dpsThree + dpsFour + dpsFive;
-            bool isBoss = isABoss;
-            int timer = 0;
-            int currentHP = bossHP;
-
-            while (true) {
-
-                currentHP = currentHP - totalDPS;               
-
-                if (currentHP < 1)
-                {
-                    // killed target/
-                    break;
-                }
-
-                if (isBoss == true && timer < 29)
-                {
-                    // failed to kill boss.
-                    break;
-                }
-
-                timer++;
-                Thread.Sleep(1000); 
-            }
-
-
-
-
-        }
-
         private void heroBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (currentCoins >= FindUpgradeCost(1))
@@ -308,6 +289,7 @@ namespace AFK_Heroes
             dlcButton.Hide();
             dlcLabel.Hide();
             trollLabel.Hide();
+            enemyHealthBar.Increment(-19);
         }
     }
 }
