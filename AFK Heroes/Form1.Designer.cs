@@ -80,7 +80,7 @@
             // startButton
             // 
             this.startButton.AutoSize = true;
-            this.startButton.Location = new System.Drawing.Point(387, 324);
+            this.startButton.Location = new System.Drawing.Point(387, 301);
             this.startButton.Margin = new System.Windows.Forms.Padding(2);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(50, 23);
@@ -168,7 +168,7 @@
             // 
             this.enemyNameLabel.AutoSize = true;
             this.enemyNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enemyNameLabel.Location = new System.Drawing.Point(468, 57);
+            this.enemyNameLabel.Location = new System.Drawing.Point(432, 57);
             this.enemyNameLabel.Name = "enemyNameLabel";
             this.enemyNameLabel.Size = new System.Drawing.Size(114, 20);
             this.enemyNameLabel.TabIndex = 9;
@@ -178,7 +178,7 @@
             // 
             this.enemyHealthLabel.AutoSize = true;
             this.enemyHealthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.enemyHealthLabel.Location = new System.Drawing.Point(478, 77);
+            this.enemyHealthLabel.Location = new System.Drawing.Point(473, 86);
             this.enemyHealthLabel.Name = "enemyHealthLabel";
             this.enemyHealthLabel.Size = new System.Drawing.Size(85, 16);
             this.enemyHealthLabel.TabIndex = 10;
@@ -322,9 +322,9 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(271, 155);
+            this.tutorialBox.Location = new System.Drawing.Point(12, 15);
             this.tutorialBox.Name = "tutorialBox";
-            this.tutorialBox.Size = new System.Drawing.Size(301, 152);
+            this.tutorialBox.Size = new System.Drawing.Size(815, 408);
             this.tutorialBox.TabIndex = 25;
             this.tutorialBox.TabStop = false;
             // 
@@ -344,6 +344,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
+            this.Controls.Add(this.startButton);
             this.Controls.Add(this.tutorialLabel);
             this.Controls.Add(this.tutorialBox);
             this.Controls.Add(this.enemyHealthBar);
@@ -369,11 +370,11 @@
             this.Controls.Add(this.heroDpsLabel2);
             this.Controls.Add(this.heroBox2);
             this.Controls.Add(this.heroDpsLabel1);
-            this.Controls.Add(this.startButton);
             this.Controls.Add(this.heroBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "AFK Heroes";
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).EndInit();
