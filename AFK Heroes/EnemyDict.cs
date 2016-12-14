@@ -8,31 +8,49 @@ namespace AFK_Heroes
 {
     class EnemyDict
     {
-        Dictionary<int, string> Enemies = new Dictionary<int, string>();
+        Random RNG = new Random();
+        Dictionary<int, string> FirstNames = new Dictionary<int, string>();
+        Dictionary<int, string> MiddleNames = new Dictionary<int, string>();
+        Dictionary<int, string> LastNames = new Dictionary<int, string>();
         Dictionary<int, string> Bosses = new Dictionary<int, string>();
 
         public void Init()
         {
-            Enemies.Add(1, "Jeff");
-            Enemies.Add(2, "Phil");
-            Enemies.Add(3, "Obama");
-            Enemies.Add(4, "George");
-            Enemies.Add(5, "Ralph");
-            Enemies.Add(6, "Sarah");
-            Enemies.Add(7, "Ryan");
-            Enemies.Add(8, "Steve");
-            Enemies.Add(9, "Ronald");
-            Enemies.Add(10, "Susan");
-            Enemies.Add(11, "Peter");
-            Enemies.Add(12, "Kim");
-            Enemies.Add(13, "Doug");
-            Enemies.Add(14, "Peter");
-            Enemies.Add(15, "Donald");
-            Enemies.Add(16, "John");
-            Enemies.Add(17, "Paul");
-            Enemies.Add(18, "Martha");
-            Enemies.Add(19, "Todd");
-            Enemies.Add(20, "Jim");
+            FirstNames.Add(1, "Haz");
+            FirstNames.Add(2, "Kun");
+            FirstNames.Add(3, "Nu");
+            FirstNames.Add(4, "Pa");
+            FirstNames.Add(5, "Fun");
+            FirstNames.Add(6, "Yak");
+            FirstNames.Add(7, "Ben");
+            FirstNames.Add(8, "Jake");
+            FirstNames.Add(9, "Hom");
+            FirstNames.Add(10, "Ger");
+            FirstNames.Add(11, "Grab her");
+
+            MiddleNames.Add(1, "'sun");
+            MiddleNames.Add(2, "'kaz");
+            MiddleNames.Add(3, "'muk");
+            MiddleNames.Add(4, "'dun");
+            MiddleNames.Add(5, "'err");
+            MiddleNames.Add(6, "'sex");
+            MiddleNames.Add(7, "'per");
+            MiddleNames.Add(8, "'ran");
+            MiddleNames.Add(9, "'jiz");
+            MiddleNames.Add(10, "'pan");
+            MiddleNames.Add(11, " by the");
+
+            LastNames.Add(1, "er");
+            LastNames.Add(2, "enson");
+            LastNames.Add(3, " the 3rd");
+            LastNames.Add(4, "'mcgee");
+            LastNames.Add(5, " the great");
+            LastNames.Add(6, " big dick");
+            LastNames.Add(7, " tiny peen");
+            LastNames.Add(8, " the bitch");
+            LastNames.Add(9, " the unstraight");
+            LastNames.Add(10, "'son");
+            LastNames.Add(11, " pussy");
 
             Bosses.Add(1, "Ben the homosexual");
             Bosses.Add(2, "Jake the gay");
@@ -43,19 +61,23 @@ namespace AFK_Heroes
             Bosses.Add(7, "Lord Trump");
         }
 
-        public string GetRandomEnemy(int num)
+        public string GetRandomEnemy()
         {
-            return Enemies[num];
+            int first = RNG.Next(1,(FirstNames.Count + 1));
+            int middle = RNG.Next(1, (MiddleNames.Count + 1));
+            int last = RNG.Next(1, (LastNames.Count + 1));
+
+            string fString = FirstNames[first];
+            string sString = MiddleNames[middle];
+            string lString = LastNames[last];
+
+
+            return fString + sString + lString;
         }
 
         public string GetRandomBoss(int num)
         {
             return Bosses[num];
-        }
-
-        public int GetEnemyCount()
-        {
-            return Enemies.Count;
         }
 
         public int GetBossCount()

@@ -33,7 +33,8 @@ namespace AFK_Heroes
             startButton.Hide();
             Foes.Init();
             StartGameThread();
-
+            tutorialBox.Hide();
+            tutorialLabel.Hide();
         }
 
         private void StartGameThread()
@@ -96,8 +97,7 @@ namespace AFK_Heroes
 
                 if ((currentRound % 10) != 0)
                 {
-                    int rngEnemy = RNG.Next(1, (Foes.GetEnemyCount() + 1));
-                    enemyName = "" + Foes.GetRandomEnemy(rngEnemy);
+                    enemyName = "" + Foes.GetRandomEnemy();
                 }
                 else if ((currentRound % 10) == 0)
                 {

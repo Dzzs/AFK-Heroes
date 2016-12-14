@@ -54,11 +54,14 @@
             this.trollLabel = new System.Windows.Forms.Label();
             this.dismissDlcBox = new System.Windows.Forms.PictureBox();
             this.enemyHealthBar = new System.Windows.Forms.ProgressBar();
+            this.tutorialBox = new System.Windows.Forms.PictureBox();
+            this.tutorialLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).BeginInit();
             this.SuspendLayout();
             // 
             // heroBox1
@@ -317,12 +320,32 @@
             this.enemyHealthBar.Size = new System.Drawing.Size(202, 10);
             this.enemyHealthBar.TabIndex = 24;
             // 
+            // tutorialBox
+            // 
+            this.tutorialBox.Location = new System.Drawing.Point(271, 155);
+            this.tutorialBox.Name = "tutorialBox";
+            this.tutorialBox.Size = new System.Drawing.Size(301, 152);
+            this.tutorialBox.TabIndex = 25;
+            this.tutorialBox.TabStop = false;
+            // 
+            // tutorialLabel
+            // 
+            this.tutorialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tutorialLabel.Location = new System.Drawing.Point(307, 183);
+            this.tutorialLabel.Name = "tutorialLabel";
+            this.tutorialLabel.Size = new System.Drawing.Size(239, 83);
+            this.tutorialLabel.TabIndex = 26;
+            this.tutorialLabel.Text = "Click the placeholder picture to level up when you have enough coins. \'Level up:\'" +
+    " is current cost to level.";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
+            this.Controls.Add(this.tutorialLabel);
+            this.Controls.Add(this.tutorialBox);
             this.Controls.Add(this.enemyHealthBar);
             this.Controls.Add(this.dismissDlcBox);
             this.Controls.Add(this.trollLabel);
@@ -356,6 +379,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -388,6 +412,8 @@
         private System.Windows.Forms.Label trollLabel;
         private System.Windows.Forms.PictureBox dismissDlcBox;
         private System.Windows.Forms.ProgressBar enemyHealthBar;
+        private System.Windows.Forms.PictureBox tutorialBox;
+        private System.Windows.Forms.Label tutorialLabel;
     }
 }
 
