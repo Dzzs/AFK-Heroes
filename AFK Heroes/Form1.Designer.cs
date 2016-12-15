@@ -79,13 +79,14 @@
             // startButton
             // 
             this.startButton.AutoSize = true;
+            this.startButton.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.startButton.Location = new System.Drawing.Point(387, 301);
             this.startButton.Margin = new System.Windows.Forms.Padding(2);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(50, 23);
             this.startButton.TabIndex = 1;
             this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = true;
+            this.startButton.UseVisualStyleBackColor = false;
             this.startButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.startButton_MouseUp);
             // 
             // heroDpsLabel1
@@ -272,6 +273,7 @@
             // 
             // enemyHealthBar
             // 
+            this.enemyHealthBar.ForeColor = System.Drawing.Color.Red;
             this.enemyHealthBar.Location = new System.Drawing.Point(411, 105);
             this.enemyHealthBar.Name = "enemyHealthBar";
             this.enemyHealthBar.Size = new System.Drawing.Size(202, 10);

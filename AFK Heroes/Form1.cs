@@ -25,8 +25,10 @@ namespace AFK_Heroes
         HeroesClass HeroTwo = new HeroesClass();
         HeroesClass HeroThree = new HeroesClass();
         SoundPlayer MusicPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.RSMusic);
-        SoundPlayer CoinPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.Coins1);        
+        SoundPlayer CoinPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.Coins1);
 
+
+        bool isClosing = false;
         bool isCombat = false;
         bool coinStarted = false;
         bool coinIsMoving = false;
@@ -37,10 +39,12 @@ namespace AFK_Heroes
         {
             startButton.Hide();
             Foes.Init();
-            StartGameThread();
+            StartGameThread(true);
             tutorialBox.Hide();
             tutorialLabel.Hide();
             //musicCheckBox.Checked = true;
+
+            
 
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
             gp.AddEllipse(0, 0, coinBox.Width - 3, coinBox.Height - 3);
@@ -48,18 +52,49 @@ namespace AFK_Heroes
             coinBox.Region = rg;
         }
 
-        private void StartGameThread()
+        private void StartGameThread(bool doStart)
         {
-            Thread MainGameThread = new Thread(new ThreadStart(UpdateThread));
 
+            Thread MainGameThread = new Thread(new ThreadStart(UpdateThread));
+            MainGameThread.IsBackground = true;
             MainGameThread.Start();
+
+            if (doStart == false)
+            {
+                MainGameThread.Abort();
+            }
+            
         }
 
-        private void StartCoinMoveThread()
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (isClosing == false)
+            {
+                isClosing = true;
+                isCombat = false;
+                coinIsMoving = false;
+                coinStarted = false;
+                StartGameThread(false);
+                StartCoinMoveThread(false);
+                e.Cancel = true;
+                this.Hide();
+                Thread.Sleep(5000);
+            }
+
+            e.Cancel = false;
+            base.OnFormClosing(e);
+        }
+        
+        private void StartCoinMoveThread(bool doStart)
         {
             Thread CoinMoveThread = new Thread(new ThreadStart(MoveCoinInfo));
-
+            CoinMoveThread.IsBackground = true;
             CoinMoveThread.Start();
+
+            if (doStart == false)
+            {
+                CoinMoveThread.Abort();
+            }
         }
 
         private void MoveCoinThread(int xPos, int yPos)
@@ -97,7 +132,7 @@ namespace AFK_Heroes
             int coinXMove = coinBox.Location.X;
             int coinYMove = coinBox.Location.Y;
             CoinVisibility(true);
-            while (true)
+            while (isClosing == false)
             {
                 coinXMove = coinBox.Location.X;
                 coinYMove = coinBox.Location.Y;
@@ -115,7 +150,10 @@ namespace AFK_Heroes
                         coinYMove = coinYMove + 3;
                     }
 
-                    MoveCoinThread(coinXMove, coinYMove);
+                    if (isClosing == false)
+                    {
+                        MoveCoinThread(coinXMove, coinYMove);
+                    }
 
                     if (coinBox.Location.X < 120 && coinBox.Location.Y > 380)
                     {
@@ -177,7 +215,7 @@ namespace AFK_Heroes
             int currentEnemyHealth = FindEnemyHealth();
             int startingHealth = FindEnemyHealth();
 
-            while (true)
+            while (isClosing == false)
             {           
                 int totalDps = HeroOne.GetDPS() + HeroTwo.GetDPS() + HeroThree.GetDPS();
                 int quarterDps = (int)Math.Round((double)totalDps / 4) + 1;
@@ -192,8 +230,10 @@ namespace AFK_Heroes
                     enemyName = "" + Foes.GetRandomBoss(rngBoss);
                 }
 
-                UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, FindEnemyHealth(), currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2),FindUpgradeCost(3), currentRound);
-
+                if (isClosing == false)
+                {
+                    UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, FindEnemyHealth(), currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2), FindUpgradeCost(3), currentRound);
+                }
                 currentEnemyHealth = FindEnemyHealth();
                 startingHealth = FindEnemyHealth();
 
@@ -211,14 +251,16 @@ namespace AFK_Heroes
                         isCombat = false;
                     }
                     EnemyHealthBarUpdater(startingHealth, currentEnemyHealth);
-                    UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, currentEnemyHealth, currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2), FindUpgradeCost(3), currentRound);
+                    if (isClosing == false){
+                        UpdateUIFromThread(HeroOne.GetDPS(), HeroTwo.GetDPS(), HeroThree.GetDPS(), enemyName, currentEnemyHealth, currentCoins, HeroOne.GetLevel(), HeroTwo.GetLevel(), HeroThree.GetLevel(), FindUpgradeCost(1), FindUpgradeCost(2), FindUpgradeCost(3), currentRound);
+                    }
                     Thread.Sleep(250);
                 }
 
                 currentRound = currentRound + 1;
                 if (coinStarted == false)
                 {
-                    StartCoinMoveThread();
+                    StartCoinMoveThread(true);
                     coinStarted = true;
                 }
                 coinIsMoving = true;
