@@ -324,7 +324,7 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(765, 9);
+            this.tutorialBox.Location = new System.Drawing.Point(12, 15);
             this.tutorialBox.Name = "tutorialBox";
             this.tutorialBox.Size = new System.Drawing.Size(815, 408);
             this.tutorialBox.TabIndex = 25;
