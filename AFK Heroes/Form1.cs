@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.Media;
 
 namespace AFK_Heroes
 {
@@ -23,6 +24,8 @@ namespace AFK_Heroes
         HeroesClass HeroOne = new HeroesClass();
         HeroesClass HeroTwo = new HeroesClass();
         HeroesClass HeroThree = new HeroesClass();
+        SoundPlayer MusicPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.RSMusic);
+        SoundPlayer CoinPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.Coins1);        
 
         bool isCombat = false;
         bool coinStarted = false;
@@ -37,6 +40,7 @@ namespace AFK_Heroes
             StartGameThread();
             tutorialBox.Hide();
             tutorialLabel.Hide();
+            //musicCheckBox.Checked = true;
 
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
             gp.AddEllipse(0, 0, coinBox.Width - 3, coinBox.Height - 3);
@@ -122,6 +126,10 @@ namespace AFK_Heroes
                             currentCoins = currentCoins + RNG.Next(10, 21);
                         }
                         currentCoins = currentCoins + RNG.Next(3, 7);
+                        if (muteCheckBox.Checked == false)
+                        {
+                            CoinPlayer.Play();
+                        }
                         SpawnCoin();
                     }
 
@@ -170,13 +178,7 @@ namespace AFK_Heroes
             int startingHealth = FindEnemyHealth();
 
             while (true)
-            {
-
-                if (currentRound == 10)
-                {
-                    //ShowDLC();
-                }
-                
+            {           
                 int totalDps = HeroOne.GetDPS() + HeroTwo.GetDPS() + HeroThree.GetDPS();
                 int quarterDps = (int)Math.Round((double)totalDps / 4) + 1;
 
@@ -250,7 +252,7 @@ namespace AFK_Heroes
             }
             else if (currentLevel > 5 && currentLevel <= 10)
             {
-                costToUpgrade = currentLevel * 3;
+                costToUpgrade = currentLevel * 6;
             }
             else if (currentLevel > 10 && currentLevel <= 20)
             {
@@ -356,25 +358,31 @@ namespace AFK_Heroes
             }
         }
 
-        private void dlcButton_MouseDown(object sender, MouseEventArgs e)
+        private void musicCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            trollLabel.Show();
-        }
 
-        void ShowDLC()
-        {
-            Invoke((MethodInvoker)delegate
+           if(musicCheckBox.Checked == true)
             {
-                dlcButton.Show();
-                dlcLabel.Show();
-            });
+                MusicPlayer.Play();
+                MusicPlayer.PlayLooping();
+            }
+            else if (musicCheckBox.Checked == false)
+            {
+                MusicPlayer.Stop();
+            }
+            
         }
 
-        private void dismissDlcBox_MouseDown(object sender, MouseEventArgs e)
+        private void muteCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            dlcButton.Hide();
-            dlcLabel.Hide();
-            trollLabel.Hide();
+            if(muteCheckBox.Checked == true)
+            {
+                MusicPlayer.Stop();
+            }
+            else if (muteCheckBox.Checked == false && musicCheckBox.Checked == true)
+            {
+                MusicPlayer.PlayLooping();
+            }
         }
     }
 }

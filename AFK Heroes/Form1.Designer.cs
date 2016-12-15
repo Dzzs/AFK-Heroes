@@ -49,19 +49,16 @@
             this.heroUpCostLabel3 = new System.Windows.Forms.Label();
             this.currentRoundLabel = new System.Windows.Forms.Label();
             this.totalDPSLabel = new System.Windows.Forms.Label();
-            this.dlcLabel = new System.Windows.Forms.Label();
-            this.dlcButton = new System.Windows.Forms.Button();
-            this.trollLabel = new System.Windows.Forms.Label();
-            this.dismissDlcBox = new System.Windows.Forms.PictureBox();
             this.enemyHealthBar = new System.Windows.Forms.ProgressBar();
             this.tutorialBox = new System.Windows.Forms.PictureBox();
             this.tutorialLabel = new System.Windows.Forms.Label();
             this.coinBox = new System.Windows.Forms.PictureBox();
+            this.musicCheckBox = new System.Windows.Forms.CheckBox();
+            this.muteCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coinBox)).BeginInit();
             this.SuspendLayout();
@@ -273,48 +270,6 @@
             this.totalDPSLabel.TabIndex = 19;
             this.totalDPSLabel.Text = "Total DPS: 3";
             // 
-            // dlcLabel
-            // 
-            this.dlcLabel.AutoSize = true;
-            this.dlcLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dlcLabel.Location = new System.Drawing.Point(648, 9);
-            this.dlcLabel.Name = "dlcLabel";
-            this.dlcLabel.Size = new System.Drawing.Size(192, 31);
-            this.dlcLabel.TabIndex = 20;
-            this.dlcLabel.Text = "Buy 500 coins!";
-            this.dlcLabel.Visible = false;
-            // 
-            // dlcButton
-            // 
-            this.dlcButton.Location = new System.Drawing.Point(702, 43);
-            this.dlcButton.Name = "dlcButton";
-            this.dlcButton.Size = new System.Drawing.Size(75, 23);
-            this.dlcButton.TabIndex = 21;
-            this.dlcButton.Text = "$4.99";
-            this.dlcButton.UseVisualStyleBackColor = true;
-            this.dlcButton.Visible = false;
-            this.dlcButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dlcButton_MouseDown);
-            // 
-            // trollLabel
-            // 
-            this.trollLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trollLabel.Location = new System.Drawing.Point(668, 69);
-            this.trollLabel.Name = "trollLabel";
-            this.trollLabel.Size = new System.Drawing.Size(159, 87);
-            this.trollLabel.TabIndex = 22;
-            this.trollLabel.Text = "Oops! Looks like you don\'t have enough. A nude picture sent to Ben@benisafaggot.o" +
-    "rg will work as well.";
-            this.trollLabel.Visible = false;
-            // 
-            // dismissDlcBox
-            // 
-            this.dismissDlcBox.Location = new System.Drawing.Point(798, 398);
-            this.dismissDlcBox.Name = "dismissDlcBox";
-            this.dismissDlcBox.Size = new System.Drawing.Size(42, 34);
-            this.dismissDlcBox.TabIndex = 23;
-            this.dismissDlcBox.TabStop = false;
-            this.dismissDlcBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dismissDlcBox_MouseDown);
-            // 
             // enemyHealthBar
             // 
             this.enemyHealthBar.Location = new System.Drawing.Point(411, 105);
@@ -324,9 +279,9 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(12, 15);
+            this.tutorialBox.Location = new System.Drawing.Point(12, 9);
             this.tutorialBox.Name = "tutorialBox";
-            this.tutorialBox.Size = new System.Drawing.Size(815, 408);
+            this.tutorialBox.Size = new System.Drawing.Size(815, 420);
             this.tutorialBox.TabIndex = 25;
             this.tutorialBox.TabStop = false;
             // 
@@ -353,6 +308,29 @@
             this.coinBox.TabStop = false;
             this.coinBox.Visible = false;
             // 
+            // musicCheckBox
+            // 
+            this.musicCheckBox.AutoSize = true;
+            this.musicCheckBox.Location = new System.Drawing.Point(773, 9);
+            this.musicCheckBox.Name = "musicCheckBox";
+            this.musicCheckBox.Size = new System.Drawing.Size(54, 17);
+            this.musicCheckBox.TabIndex = 28;
+            this.musicCheckBox.Text = "Music";
+            this.musicCheckBox.UseVisualStyleBackColor = true;
+            this.musicCheckBox.Visible = false;
+            this.musicCheckBox.CheckedChanged += new System.EventHandler(this.musicCheckBox_CheckedChanged);
+            // 
+            // muteCheckBox
+            // 
+            this.muteCheckBox.AutoSize = true;
+            this.muteCheckBox.Location = new System.Drawing.Point(773, 28);
+            this.muteCheckBox.Name = "muteCheckBox";
+            this.muteCheckBox.Size = new System.Drawing.Size(50, 17);
+            this.muteCheckBox.TabIndex = 29;
+            this.muteCheckBox.Text = "Mute";
+            this.muteCheckBox.UseVisualStyleBackColor = true;
+            this.muteCheckBox.CheckedChanged += new System.EventHandler(this.muteCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,10 +342,6 @@
             this.Controls.Add(this.tutorialLabel);
             this.Controls.Add(this.tutorialBox);
             this.Controls.Add(this.enemyHealthBar);
-            this.Controls.Add(this.dismissDlcBox);
-            this.Controls.Add(this.trollLabel);
-            this.Controls.Add(this.dlcButton);
-            this.Controls.Add(this.dlcLabel);
             this.Controls.Add(this.heroUpCostLabel3);
             this.Controls.Add(this.heroLevelLabel3);
             this.Controls.Add(this.heroUpCostLabel2);
@@ -387,6 +361,8 @@
             this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.totalDPSLabel);
             this.Controls.Add(this.currentRoundLabel);
+            this.Controls.Add(this.muteCheckBox);
+            this.Controls.Add(this.musicCheckBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -395,7 +371,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coinBox)).EndInit();
             this.ResumeLayout(false);
@@ -425,14 +400,12 @@
         private System.Windows.Forms.Label heroUpCostLabel3;
         private System.Windows.Forms.Label currentRoundLabel;
         private System.Windows.Forms.Label totalDPSLabel;
-        private System.Windows.Forms.Label dlcLabel;
-        private System.Windows.Forms.Button dlcButton;
-        private System.Windows.Forms.Label trollLabel;
-        private System.Windows.Forms.PictureBox dismissDlcBox;
         private System.Windows.Forms.ProgressBar enemyHealthBar;
         private System.Windows.Forms.PictureBox tutorialBox;
         private System.Windows.Forms.Label tutorialLabel;
         private System.Windows.Forms.PictureBox coinBox;
+        private System.Windows.Forms.CheckBox musicCheckBox;
+        private System.Windows.Forms.CheckBox muteCheckBox;
     }
 }
 
