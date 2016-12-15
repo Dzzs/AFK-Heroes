@@ -51,6 +51,7 @@ namespace AFK_Heroes
             LastNames.Add(9, " the unstraight");
             LastNames.Add(10, "'son");
             LastNames.Add(11, " pussy");
+            LastNames.Add(12, " king of the Fjarnskaggl");
 
             Bosses.Add(1, "Ben the homosexual");
             Bosses.Add(2, "Jake the gay");
@@ -59,6 +60,7 @@ namespace AFK_Heroes
             Bosses.Add(5, "Dr. Jakedoesnthavenstein");
             Bosses.Add(6, "Jamboni the great");
             Bosses.Add(7, "Lord Trump");
+            
         }
 
         public string GetRandomEnemy()

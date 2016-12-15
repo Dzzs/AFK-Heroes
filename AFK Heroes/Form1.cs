@@ -25,6 +25,8 @@ namespace AFK_Heroes
         HeroesClass HeroThree = new HeroesClass();
 
         bool isCombat = false;
+        bool coinStarted = false;
+        bool coinIsMoving = false;
         private int currentRound = 1;
         private int currentCoins = 0;
 
@@ -35,15 +37,97 @@ namespace AFK_Heroes
             StartGameThread();
             tutorialBox.Hide();
             tutorialLabel.Hide();
+
+            System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
+            gp.AddEllipse(0, 0, coinBox.Width - 3, coinBox.Height - 3);
+            Region rg = new Region(gp);
+            coinBox.Region = rg;
         }
 
         private void StartGameThread()
         {
             Thread MainGameThread = new Thread(new ThreadStart(UpdateThread));
 
-            //MainGameThread.IsBackground = true;
-
             MainGameThread.Start();
+        }
+
+        private void StartCoinMoveThread()
+        {
+            Thread CoinMoveThread = new Thread(new ThreadStart(MoveCoinInfo));
+
+            CoinMoveThread.Start();
+        }
+
+        private void MoveCoinThread(int xPos, int yPos)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                coinBox.Location = new Point(xPos, yPos);
+            });
+        }
+
+        private void CoinVisibility(bool doShow)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                if (doShow == true)
+                {
+                    coinBox.Show();
+                }
+                else if (doShow == false)
+                {
+                    coinBox.Hide();
+                }
+            });
+        }
+
+        private void SpawnCoin()
+        {
+            int coinXPosSpawn = RNG.Next(387, 592);
+            int coinYPosSpawn = RNG.Next(121, 259);
+            MoveCoinThread(coinXPosSpawn, coinYPosSpawn);
+        }
+
+        private void MoveCoinInfo()
+        {
+            int coinXMove = coinBox.Location.X;
+            int coinYMove = coinBox.Location.Y;
+            CoinVisibility(true);
+            while (true)
+            {
+                coinXMove = coinBox.Location.X;
+                coinYMove = coinBox.Location.Y;
+
+                while (coinIsMoving == true)
+                {
+                    CoinVisibility(true);
+
+                    if (coinBox.Location.X > 116)
+                    {
+                        coinXMove = coinXMove - 5;
+                    }
+                    if (coinBox.Location.Y < 385)
+                    {
+                        coinYMove = coinYMove + 3;
+                    }
+
+                    MoveCoinThread(coinXMove, coinYMove);
+
+                    if (coinBox.Location.X < 120 && coinBox.Location.Y > 380)
+                    {
+                        CoinVisibility(false);
+                        coinIsMoving = false;
+                        if ((currentRound % 10) == 0)
+                        {
+                            currentCoins = currentCoins + RNG.Next(10, 21);
+                        }
+                        currentCoins = currentCoins + RNG.Next(3, 7);
+                        SpawnCoin();
+                    }
+
+                    Thread.Sleep(10);
+                }
+            }
         }
 
         private void EnemyHealthBarUpdater(int fullHP, int currentHP)
@@ -90,8 +174,9 @@ namespace AFK_Heroes
 
                 if (currentRound == 10)
                 {
-                    ShowDLC();
+                    //ShowDLC();
                 }
+                
                 int totalDps = HeroOne.GetDPS() + HeroTwo.GetDPS() + HeroThree.GetDPS();
                 int quarterDps = (int)Math.Round((double)totalDps / 4) + 1;
 
@@ -128,12 +213,13 @@ namespace AFK_Heroes
                     Thread.Sleep(250);
                 }
 
-                if ((currentRound % 10) == 0)
-                {
-                    currentCoins = currentCoins + RNG.Next(10,21);
-                }
-                currentCoins = currentCoins + RNG.Next(3,7);
                 currentRound = currentRound + 1;
+                if (coinStarted == false)
+                {
+                    StartCoinMoveThread();
+                    coinStarted = true;
+                }
+                coinIsMoving = true;
             }   
         }
 
@@ -289,7 +375,6 @@ namespace AFK_Heroes
             dlcButton.Hide();
             dlcLabel.Hide();
             trollLabel.Hide();
-            enemyHealthBar.Increment(-19);
         }
     }
 }

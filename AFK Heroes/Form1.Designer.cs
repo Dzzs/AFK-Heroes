@@ -56,12 +56,14 @@
             this.enemyHealthBar = new System.Windows.Forms.ProgressBar();
             this.tutorialBox = new System.Windows.Forms.PictureBox();
             this.tutorialLabel = new System.Windows.Forms.Label();
+            this.coinBox = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coinBox)).BeginInit();
             this.SuspendLayout();
             // 
             // heroBox1
@@ -322,7 +324,7 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(12, 15);
+            this.tutorialBox.Location = new System.Drawing.Point(765, 9);
             this.tutorialBox.Name = "tutorialBox";
             this.tutorialBox.Size = new System.Drawing.Size(815, 408);
             this.tutorialBox.TabIndex = 25;
@@ -338,12 +340,26 @@
             this.tutorialLabel.Text = "Click the placeholder picture to level up when you have enough coins. \'Level up:\'" +
     " is current cost to level.";
             // 
+            // coinBox
+            // 
+            this.coinBox.BackColor = System.Drawing.Color.Transparent;
+            this.coinBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("coinBox.BackgroundImage")));
+            this.coinBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.coinBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.coinBox.Location = new System.Drawing.Point(580, 243);
+            this.coinBox.Name = "coinBox";
+            this.coinBox.Size = new System.Drawing.Size(46, 38);
+            this.coinBox.TabIndex = 27;
+            this.coinBox.TabStop = false;
+            this.coinBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
+            this.Controls.Add(this.coinBox);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.tutorialLabel);
             this.Controls.Add(this.tutorialBox);
@@ -352,8 +368,6 @@
             this.Controls.Add(this.trollLabel);
             this.Controls.Add(this.dlcButton);
             this.Controls.Add(this.dlcLabel);
-            this.Controls.Add(this.totalDPSLabel);
-            this.Controls.Add(this.currentRoundLabel);
             this.Controls.Add(this.heroUpCostLabel3);
             this.Controls.Add(this.heroLevelLabel3);
             this.Controls.Add(this.heroUpCostLabel2);
@@ -363,7 +377,6 @@
             this.Controls.Add(this.currentCoinsLabel);
             this.Controls.Add(this.enemyHealthLabel);
             this.Controls.Add(this.enemyNameLabel);
-            this.Controls.Add(this.enemyBox);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.heroDpsLabel3);
             this.Controls.Add(this.heroBox3);
@@ -371,6 +384,9 @@
             this.Controls.Add(this.heroBox2);
             this.Controls.Add(this.heroDpsLabel1);
             this.Controls.Add(this.heroBox1);
+            this.Controls.Add(this.enemyBox);
+            this.Controls.Add(this.totalDPSLabel);
+            this.Controls.Add(this.currentRoundLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -381,6 +397,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.enemyBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dismissDlcBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tutorialBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coinBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -415,6 +432,7 @@
         private System.Windows.Forms.ProgressBar enemyHealthBar;
         private System.Windows.Forms.PictureBox tutorialBox;
         private System.Windows.Forms.Label tutorialLabel;
+        private System.Windows.Forms.PictureBox coinBox;
     }
 }
 
