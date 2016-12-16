@@ -10,7 +10,7 @@ namespace AFK_Heroes
 {
     public class HeroesClass
     {
-        private int dps = 1;
+        private double dps = 1;
         private string name = "Default";
         private int level = 1;
 
@@ -26,7 +26,7 @@ namespace AFK_Heroes
 
         public int GetDPS()
         {
-            return dps;
+            return (int)dps;
         }
 
         public void AddDPS(int dpsAdd)
@@ -42,7 +42,7 @@ namespace AFK_Heroes
             }
             else if (dps > 4)
             {
-                int toAdd = dps + (dps / 4);
+                double toAdd = dps * .25 ;
                 dps = dps + toAdd;
             }
         }

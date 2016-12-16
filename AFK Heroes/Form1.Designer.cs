@@ -55,6 +55,10 @@
             this.coinBox = new System.Windows.Forms.PictureBox();
             this.musicCheckBox = new System.Windows.Forms.CheckBox();
             this.muteCheckBox = new System.Windows.Forms.CheckBox();
+            this.autoLevelCheckBox1 = new System.Windows.Forms.CheckBox();
+            this.autoLevelCheckBox2 = new System.Windows.Forms.CheckBox();
+            this.autoLevelCheckBox3 = new System.Windows.Forms.CheckBox();
+            this.afkModeCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
@@ -281,21 +285,21 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(12, 9);
+            this.tutorialBox.Location = new System.Drawing.Point(0, 0);
             this.tutorialBox.Name = "tutorialBox";
-            this.tutorialBox.Size = new System.Drawing.Size(815, 420);
+            this.tutorialBox.Size = new System.Drawing.Size(840, 433);
             this.tutorialBox.TabIndex = 25;
             this.tutorialBox.TabStop = false;
             // 
             // tutorialLabel
             // 
             this.tutorialLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tutorialLabel.Location = new System.Drawing.Point(307, 183);
+            this.tutorialLabel.Location = new System.Drawing.Point(307, 150);
             this.tutorialLabel.Name = "tutorialLabel";
-            this.tutorialLabel.Size = new System.Drawing.Size(239, 83);
+            this.tutorialLabel.Size = new System.Drawing.Size(239, 116);
             this.tutorialLabel.TabIndex = 26;
             this.tutorialLabel.Text = "Click the placeholder picture to level up when you have enough coins. \'Level up:\'" +
-    " is current cost to level.";
+    " is current cost to level. AFK mode drastically reduces CPU usage.";
             // 
             // coinBox
             // 
@@ -313,7 +317,7 @@
             // musicCheckBox
             // 
             this.musicCheckBox.AutoSize = true;
-            this.musicCheckBox.Location = new System.Drawing.Point(773, 9);
+            this.musicCheckBox.Location = new System.Drawing.Point(786, 12);
             this.musicCheckBox.Name = "musicCheckBox";
             this.musicCheckBox.Size = new System.Drawing.Size(54, 17);
             this.musicCheckBox.TabIndex = 28;
@@ -325,7 +329,7 @@
             // muteCheckBox
             // 
             this.muteCheckBox.AutoSize = true;
-            this.muteCheckBox.Location = new System.Drawing.Point(773, 28);
+            this.muteCheckBox.Location = new System.Drawing.Point(786, 0);
             this.muteCheckBox.Name = "muteCheckBox";
             this.muteCheckBox.Size = new System.Drawing.Size(50, 17);
             this.muteCheckBox.TabIndex = 29;
@@ -333,16 +337,64 @@
             this.muteCheckBox.UseVisualStyleBackColor = true;
             this.muteCheckBox.CheckedChanged += new System.EventHandler(this.muteCheckBox_CheckedChanged);
             // 
+            // autoLevelCheckBox1
+            // 
+            this.autoLevelCheckBox1.AutoSize = true;
+            this.autoLevelCheckBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("autoLevelCheckBox1.BackgroundImage")));
+            this.autoLevelCheckBox1.Location = new System.Drawing.Point(49, 63);
+            this.autoLevelCheckBox1.Name = "autoLevelCheckBox1";
+            this.autoLevelCheckBox1.Size = new System.Drawing.Size(73, 17);
+            this.autoLevelCheckBox1.TabIndex = 30;
+            this.autoLevelCheckBox1.Text = "Auto level";
+            this.autoLevelCheckBox1.UseVisualStyleBackColor = true;
+            // 
+            // autoLevelCheckBox2
+            // 
+            this.autoLevelCheckBox2.AutoSize = true;
+            this.autoLevelCheckBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("autoLevelCheckBox2.BackgroundImage")));
+            this.autoLevelCheckBox2.Location = new System.Drawing.Point(49, 171);
+            this.autoLevelCheckBox2.Name = "autoLevelCheckBox2";
+            this.autoLevelCheckBox2.Size = new System.Drawing.Size(73, 17);
+            this.autoLevelCheckBox2.TabIndex = 31;
+            this.autoLevelCheckBox2.Text = "Auto level";
+            this.autoLevelCheckBox2.UseVisualStyleBackColor = true;
+            // 
+            // autoLevelCheckBox3
+            // 
+            this.autoLevelCheckBox3.AutoSize = true;
+            this.autoLevelCheckBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("autoLevelCheckBox3.BackgroundImage")));
+            this.autoLevelCheckBox3.Location = new System.Drawing.Point(49, 284);
+            this.autoLevelCheckBox3.Name = "autoLevelCheckBox3";
+            this.autoLevelCheckBox3.Size = new System.Drawing.Size(73, 17);
+            this.autoLevelCheckBox3.TabIndex = 32;
+            this.autoLevelCheckBox3.Text = "Auto level";
+            this.autoLevelCheckBox3.UseVisualStyleBackColor = true;
+            // 
+            // afkModeCheckBox
+            // 
+            this.afkModeCheckBox.AutoSize = true;
+            this.afkModeCheckBox.Location = new System.Drawing.Point(3, 0);
+            this.afkModeCheckBox.Name = "afkModeCheckBox";
+            this.afkModeCheckBox.Size = new System.Drawing.Size(75, 17);
+            this.afkModeCheckBox.TabIndex = 33;
+            this.afkModeCheckBox.Text = "AFK mode";
+            this.afkModeCheckBox.UseVisualStyleBackColor = true;
+            this.afkModeCheckBox.CheckedChanged += new System.EventHandler(this.afkModeCheckBox_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
             this.ClientSize = new System.Drawing.Size(839, 432);
-            this.Controls.Add(this.coinBox);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.tutorialLabel);
             this.Controls.Add(this.tutorialBox);
+            this.Controls.Add(this.afkModeCheckBox);
+            this.Controls.Add(this.autoLevelCheckBox3);
+            this.Controls.Add(this.autoLevelCheckBox2);
+            this.Controls.Add(this.autoLevelCheckBox1);
+            this.Controls.Add(this.coinBox);
             this.Controls.Add(this.enemyHealthBar);
             this.Controls.Add(this.heroUpCostLabel3);
             this.Controls.Add(this.heroLevelLabel3);
@@ -408,6 +460,10 @@
         private System.Windows.Forms.PictureBox coinBox;
         private System.Windows.Forms.CheckBox musicCheckBox;
         private System.Windows.Forms.CheckBox muteCheckBox;
+        private System.Windows.Forms.CheckBox autoLevelCheckBox1;
+        private System.Windows.Forms.CheckBox autoLevelCheckBox2;
+        private System.Windows.Forms.CheckBox autoLevelCheckBox3;
+        private System.Windows.Forms.CheckBox afkModeCheckBox;
     }
 }
 

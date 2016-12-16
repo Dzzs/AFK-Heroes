@@ -29,7 +29,9 @@ namespace AFK_Heroes
 
 
         bool isClosing = false;
+        bool afkMode = false;
         bool isCombat = false;
+        bool coinKeepRunning = true;
         bool coinStarted = false;
         bool coinIsMoving = false;
         private int currentRound = 1;
@@ -84,7 +86,7 @@ namespace AFK_Heroes
             e.Cancel = false;
             base.OnFormClosing(e);
         }
-        
+
         private void StartCoinMoveThread(bool doStart)
         {
             Thread CoinMoveThread = new Thread(new ThreadStart(MoveCoinInfo));
@@ -93,7 +95,7 @@ namespace AFK_Heroes
 
             if (doStart == false)
             {
-                CoinMoveThread.Abort();
+                CoinMoveThread.Abort();                
             }
         }
 
@@ -134,6 +136,11 @@ namespace AFK_Heroes
             CoinVisibility(true);
             while (isClosing == false)
             {
+                while (coinKeepRunning == false)
+                {
+                    coinBox.Hide();
+                    Thread.Sleep(500);
+                }
                 coinXMove = coinBox.Location.X;
                 coinYMove = coinBox.Location.Y;
 
@@ -159,19 +166,30 @@ namespace AFK_Heroes
                     {
                         CoinVisibility(false);
                         coinIsMoving = false;
-                        if ((currentRound % 10) == 0)
+                        if (afkMode == false)
                         {
-                            currentCoins = currentCoins + RNG.Next(10, 21);
+                            if (((currentRound - 1) % 10) == 0)
+                            {
+                                currentCoins = currentCoins + RNG.Next(10, 21);
+                            }
+                            currentCoins = currentCoins + RNG.Next(3, 7);
+                            if (muteCheckBox.Checked == false)
+                            {
+                                CoinPlayer.Play();
+                            }
+                            AFKUpgrade();
+                            SpawnCoin();
                         }
-                        currentCoins = currentCoins + RNG.Next(3, 7);
-                        if (muteCheckBox.Checked == false)
-                        {
-                            CoinPlayer.Play();
-                        }
-                        SpawnCoin();
                     }
-
-                    Thread.Sleep(10);
+                    if (afkMode == false)
+                    {
+                        Thread.Sleep(10);
+                    }
+                }
+                if (afkMode == true)
+                {
+                    coinKeepRunning = false;
+                    //StartCoinMoveThread(false);
                 }
             }
         }
@@ -249,6 +267,15 @@ namespace AFK_Heroes
                     {
                         currentEnemyHealth = 0;
                         isCombat = false;
+                        if (afkModeCheckBox.Checked == true)
+                        {
+                            if (((currentRound - 1) % 10) == 0)
+                            {
+                                currentCoins = currentCoins + RNG.Next(10, 21);
+                            }
+                            currentCoins = currentCoins + RNG.Next(3, 7);
+                            AFKUpgrade();
+                        }
                     }
                     EnemyHealthBarUpdater(startingHealth, currentEnemyHealth);
                     if (isClosing == false){
@@ -330,27 +357,27 @@ namespace AFK_Heroes
             }
             else if (currentRound > 9 && currentRound <= 25)
             {
-                enemyHP = 20 + (currentRound * 7);
+                enemyHP = 20 + (currentRound * 5);
             }
             else if (currentRound > 25 && currentRound <= 50)
             {
-                enemyHP = 45 + (currentRound * 11);
+                enemyHP = 45 + (currentRound * 6);
             }
             else if (currentRound > 50 && currentRound <= 100)
             {
-                enemyHP = 600 + (currentRound * 15);
+                enemyHP = 600 + (currentRound * 7);
             }
             else if (currentRound > 100 && currentRound <= 250)
             {
-                enemyHP = 1400 + (currentRound * 21);
+                enemyHP = 1400 + (currentRound * 8);
             }
             else if (currentRound > 250 && currentRound <= 500)
             {
-                enemyHP = 4500 + (currentRound * 28);
+                enemyHP = 4500 + (currentRound * 9);
             }
             else if (currentRound > 500)
             {
-                enemyHP = 10000 + (currentRound * 40);
+                enemyHP = 10000 + (currentRound * 10);
             }
 
             if ((currentRound % 10) == 0)
@@ -358,6 +385,48 @@ namespace AFK_Heroes
                 enemyHP = enemyHP * 3;
             }
             return enemyHP;
+        }
+
+        private void AFKUpgrade()
+        {
+            if (autoLevelCheckBox1.Checked == true)
+            {
+                if (currentCoins >= FindUpgradeCost(1))
+                {
+                    currentCoins = currentCoins - FindUpgradeCost(1);
+                    HeroOne.UpdateDPS();
+                    HeroOne.SetLevel(1);
+                    heroDpsLabel1.Text = "DPS: " + HeroOne.GetDPS();
+                    heroLevelLabel1.Text = "Level: " + HeroOne.GetLevel();
+                    heroUpCostLabel1.Text = "Level up " + FindUpgradeCost(1);     
+                }
+            }
+
+            if (autoLevelCheckBox2.Checked == true)
+            {
+                if (currentCoins >= FindUpgradeCost(2))
+                {
+                    currentCoins = currentCoins - FindUpgradeCost(2);
+                    HeroTwo.UpdateDPS();
+                    HeroTwo.SetLevel(1);
+                    heroDpsLabel2.Text = "DPS: " + HeroTwo.GetDPS();
+                    heroLevelLabel2.Text = "Level: " + HeroTwo.GetLevel();
+                    heroUpCostLabel2.Text = "Level up " + FindUpgradeCost(2);
+                }
+            }
+
+            if (autoLevelCheckBox3.Checked == true)
+            {
+                if (currentCoins >= FindUpgradeCost(3))
+                {
+                    currentCoins = currentCoins - FindUpgradeCost(3);
+                    HeroThree.UpdateDPS();
+                    HeroThree.SetLevel(1);
+                    heroDpsLabel3.Text = "DPS: " + HeroThree.GetDPS();
+                    heroLevelLabel3.Text = "Level: " + HeroThree.GetLevel();
+                    heroUpCostLabel3.Text = "Level up " + FindUpgradeCost(3);
+                }
+            }
         }
 
         private void heroBox1_MouseUp(object sender, MouseEventArgs e)
@@ -424,6 +493,24 @@ namespace AFK_Heroes
             else if (muteCheckBox.Checked == false && musicCheckBox.Checked == true)
             {
                 MusicPlayer.PlayLooping();
+            }
+        }
+
+        private void afkModeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (afkModeCheckBox.Checked == true)
+            {
+                afkMode = true;
+                muteCheckBox.Hide();
+                coinKeepRunning = false;
+                coinBox.Hide();
+            }
+            else if (afkModeCheckBox.Checked == false)
+            {
+                afkMode = false;
+                muteCheckBox.Show();
+                coinKeepRunning = true;
+                //StartCoinMoveThread(true);
             }
         }
     }
