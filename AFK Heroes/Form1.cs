@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Media;
+using System.Diagnostics;
 
 namespace AFK_Heroes
 {
@@ -24,6 +25,7 @@ namespace AFK_Heroes
         HeroesClass HeroOne = new HeroesClass();
         HeroesClass HeroTwo = new HeroesClass();
         HeroesClass HeroThree = new HeroesClass();
+        Stopwatch RunningTime = new Stopwatch();
         SoundPlayer MusicPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.RSMusic);
         SoundPlayer CoinPlayer = new SoundPlayer(AFK_Heroes.Properties.Resources.Coins1);
 
@@ -44,10 +46,10 @@ namespace AFK_Heroes
             StartGameThread(true);
             tutorialBox.Hide();
             tutorialLabel.Hide();
+            RunningTime.Start();
+            timer1.Start();
             //musicCheckBox.Checked = true;
-
-            
-
+      
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
             gp.AddEllipse(0, 0, coinBox.Width - 3, coinBox.Height - 3);
             Region rg = new Region(gp);
@@ -170,9 +172,9 @@ namespace AFK_Heroes
                         {
                             if (((currentRound - 1) % 10) == 0)
                             {
-                                currentCoins = currentCoins + RNG.Next(10, 21);
+                                currentCoins = currentCoins + RNG.Next(18, 31);
                             }
-                            currentCoins = currentCoins + RNG.Next(3, 7);
+                            currentCoins = currentCoins + RNG.Next(7, 13);
                             if (muteCheckBox.Checked == false)
                             {
                                 CoinPlayer.Play();
@@ -271,9 +273,9 @@ namespace AFK_Heroes
                         {
                             if (((currentRound - 1) % 10) == 0)
                             {
-                                currentCoins = currentCoins + RNG.Next(10, 21);
+                                currentCoins = currentCoins + RNG.Next(18, 31);
                             }
-                            currentCoins = currentCoins + RNG.Next(3, 7);
+                            currentCoins = currentCoins + RNG.Next(7, 13);
                             AFKUpgrade();
                         }
                     }
@@ -353,31 +355,31 @@ namespace AFK_Heroes
             int enemyHP = 1;
             if (currentRound < 10)
             {
-                enemyHP = 10 + (currentRound * 4);
+                enemyHP = 10 + (currentRound * 5);
             }
             else if (currentRound > 9 && currentRound <= 25)
             {
-                enemyHP = 20 + (currentRound * 5);
+                enemyHP = 20 + (currentRound * 6);
             }
             else if (currentRound > 25 && currentRound <= 50)
             {
-                enemyHP = 45 + (currentRound * 6);
+                enemyHP = 45 + (currentRound * 7);
             }
             else if (currentRound > 50 && currentRound <= 100)
             {
-                enemyHP = 600 + (currentRound * 7);
+                enemyHP = 60 + (currentRound * 8);
             }
             else if (currentRound > 100 && currentRound <= 250)
             {
-                enemyHP = 1400 + (currentRound * 8);
+                enemyHP = 90 + (currentRound * 9);
             }
             else if (currentRound > 250 && currentRound <= 500)
             {
-                enemyHP = 4500 + (currentRound * 9);
+                enemyHP = 150 + (currentRound * 10);
             }
             else if (currentRound > 500)
             {
-                enemyHP = 10000 + (currentRound * 10);
+                enemyHP = 300 + (currentRound * 15);
             }
 
             if ((currentRound % 10) == 0)
@@ -513,5 +515,21 @@ namespace AFK_Heroes
                 //StartCoinMoveThread(true);
             }
         }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if(RunningTime.Elapsed.Minutes < 1 && RunningTime.Elapsed.Hours < 1)
+            {
+                runningTimeLabel.Text = "Run time " + RunningTime.Elapsed.Seconds.ToString();
+            }
+            else if (RunningTime.Elapsed.Minutes > 0 && RunningTime.Elapsed.Hours < 1)
+            {
+                runningTimeLabel.Text = "Run time " + RunningTime.Elapsed.Minutes.ToString() + ":" + RunningTime.Elapsed.Seconds.ToString();
+            }
+            else if (RunningTime.Elapsed.Hours > 0)
+            {
+                runningTimeLabel.Text = "Run time " + RunningTime.Elapsed.Hours.ToString() + ":" + RunningTime.Elapsed.Minutes.ToString() + ":" + RunningTime.Elapsed.Seconds.ToString();
+            }
+         }
     }
 }

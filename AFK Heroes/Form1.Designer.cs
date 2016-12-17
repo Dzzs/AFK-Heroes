@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.heroBox1 = new System.Windows.Forms.PictureBox();
             this.startButton = new System.Windows.Forms.Button();
@@ -59,6 +60,8 @@
             this.autoLevelCheckBox2 = new System.Windows.Forms.CheckBox();
             this.autoLevelCheckBox3 = new System.Windows.Forms.CheckBox();
             this.afkModeCheckBox = new System.Windows.Forms.CheckBox();
+            this.runningTimeLabel = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
@@ -285,7 +288,7 @@
             // 
             // tutorialBox
             // 
-            this.tutorialBox.Location = new System.Drawing.Point(0, 0);
+            this.tutorialBox.Location = new System.Drawing.Point(0, -1);
             this.tutorialBox.Name = "tutorialBox";
             this.tutorialBox.Size = new System.Drawing.Size(840, 433);
             this.tutorialBox.TabIndex = 25;
@@ -381,6 +384,20 @@
             this.afkModeCheckBox.UseVisualStyleBackColor = true;
             this.afkModeCheckBox.CheckedChanged += new System.EventHandler(this.afkModeCheckBox_CheckedChanged);
             // 
+            // runningTimeLabel
+            // 
+            this.runningTimeLabel.AutoSize = true;
+            this.runningTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.runningTimeLabel.Location = new System.Drawing.Point(649, 408);
+            this.runningTimeLabel.Name = "runningTimeLabel";
+            this.runningTimeLabel.Size = new System.Drawing.Size(183, 24);
+            this.runningTimeLabel.TabIndex = 34;
+            this.runningTimeLabel.Text = "Run time: 10:20:30";
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -417,6 +434,7 @@
             this.Controls.Add(this.currentRoundLabel);
             this.Controls.Add(this.muteCheckBox);
             this.Controls.Add(this.musicCheckBox);
+            this.Controls.Add(this.runningTimeLabel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
@@ -464,6 +482,8 @@
         private System.Windows.Forms.CheckBox autoLevelCheckBox2;
         private System.Windows.Forms.CheckBox autoLevelCheckBox3;
         private System.Windows.Forms.CheckBox afkModeCheckBox;
+        private System.Windows.Forms.Label runningTimeLabel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
