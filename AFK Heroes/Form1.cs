@@ -41,15 +41,18 @@ namespace AFK_Heroes
 
         private void startButton_MouseUp(object sender, MouseEventArgs e)
         {
-            startButton.Hide();
             Foes.Init();
-            StartGameThread(true);
+            mainGameWorker.RunWorkerAsync();
+            coinWorker.RunWorkerAsync();
+            startButton.Hide();
+         // StartGameThread(true);
             tutorialBox.Hide();
             tutorialLabel.Hide();
             RunningTime.Start();
             timer1.Start();
+            coinBox.Hide();
             //musicCheckBox.Checked = true;
-      
+
             System.Drawing.Drawing2D.GraphicsPath gp = new System.Drawing.Drawing2D.GraphicsPath();
             gp.AddEllipse(0, 0, coinBox.Width - 3, coinBox.Height - 3);
             Region rg = new Region(gp);
@@ -69,26 +72,29 @@ namespace AFK_Heroes
             }
             
         }
-
+        
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (isClosing == false)
             {
+                mainGameWorker.CancelAsync();
+                coinWorker.CancelAsync();
+                mainGameWorker.Dispose();
+                coinWorker.Dispose();
                 isClosing = true;
                 isCombat = false;
                 coinIsMoving = false;
                 coinStarted = false;
-                StartGameThread(false);
-                StartCoinMoveThread(false);
+                //StartGameThread(false);
+                //StartCoinMoveThread(false);
                 e.Cancel = true;
                 this.Hide();
-                Thread.Sleep(5000);
             }
 
             e.Cancel = false;
             base.OnFormClosing(e);
         }
-
+        
         private void StartCoinMoveThread(bool doStart)
         {
             Thread CoinMoveThread = new Thread(new ThreadStart(MoveCoinInfo));
@@ -103,25 +109,31 @@ namespace AFK_Heroes
 
         private void MoveCoinThread(int xPos, int yPos)
         {
-            Invoke((MethodInvoker)delegate
+            if (coinWorker.IsBusy)
             {
-                coinBox.Location = new Point(xPos, yPos);
-            });
+                Invoke((MethodInvoker)delegate
+                {
+                    coinBox.Location = new Point(xPos, yPos);
+                });
+            }
         }
 
         private void CoinVisibility(bool doShow)
         {
-            Invoke((MethodInvoker)delegate
+            if (coinWorker.IsBusy)
             {
-                if (doShow == true)
+                Invoke((MethodInvoker)delegate
                 {
-                    coinBox.Show();
-                }
-                else if (doShow == false)
-                {
-                    coinBox.Hide();
-                }
-            });
+                    if (doShow == true)
+                    {
+                        coinBox.Show();
+                    }
+                    else if (doShow == false)
+                    {
+                        coinBox.Hide();
+                    }
+                });
+            }
         }
 
         private void SpawnCoin()
@@ -140,7 +152,7 @@ namespace AFK_Heroes
             {
                 while (coinKeepRunning == false)
                 {
-                    coinBox.Hide();
+                    //coinBox.Hide();
                     Thread.Sleep(500);
                 }
                 coinXMove = coinBox.Location.X;
@@ -199,34 +211,39 @@ namespace AFK_Heroes
         private void EnemyHealthBarUpdater(int fullHP, int currentHP)
         {
             int incAmount = fullHP - currentHP;
-
-            Invoke((MethodInvoker)delegate
+            if (mainGameWorker.IsBusy)
             {
-                enemyHealthBar.Maximum = fullHP;
-                enemyHealthBar.Value = fullHP;
-                enemyHealthBar.Increment(-incAmount);
-            });
+                Invoke((MethodInvoker)delegate
+                {
+                    enemyHealthBar.Maximum = fullHP;
+                    enemyHealthBar.Value = fullHP;
+                    enemyHealthBar.Increment(-incAmount);
+                });
+            }
         }
 
         private void UpdateUIFromThread(int hDps1, int hDps2, int hDps3, string eName, int eHP, int coinCount, int h1Level, int h2Level, int h3Level, int h1Cost, int h2Cost, int h3Cost, int currentLvl)
         {
-            Invoke((MethodInvoker)delegate
+            if (mainGameWorker.IsBusy)
             {
-                heroDpsLabel1.Text = "DPS: " + hDps1;
-                heroDpsLabel2.Text = "DPS: " + hDps2;
-                heroDpsLabel3.Text = "DPS: " + hDps3;
-                enemyNameLabel.Text = "" + eName;
-                enemyHealthLabel.Text = "Health: " + eHP;
-                currentCoinsLabel.Text = "Coins: " + currentCoins;
-                heroLevelLabel1.Text = "Level: " + h1Level;
-                heroLevelLabel2.Text = "Level: " + h2Level;
-                heroLevelLabel3.Text = "Level: " + h3Level;
-                heroUpCostLabel1.Text = "Level up " + h1Cost;
-                heroUpCostLabel2.Text = "Level up " + h2Cost;
-                heroUpCostLabel3.Text = "Level up " + h3Cost;
-                currentRoundLabel.Text = "Wave " + currentLvl;
-                totalDPSLabel.Text = "Total DPS: " + (hDps1 + hDps2 + hDps3);
-            });
+                Invoke((MethodInvoker)delegate
+                {
+                    heroDpsLabel1.Text = "DPS: " + hDps1;
+                    heroDpsLabel2.Text = "DPS: " + hDps2;
+                    heroDpsLabel3.Text = "DPS: " + hDps3;
+                    enemyNameLabel.Text = "" + eName;
+                    enemyHealthLabel.Text = "Health: " + eHP;
+                    currentCoinsLabel.Text = "Coins: " + currentCoins;
+                    heroLevelLabel1.Text = "Level: " + h1Level;
+                    heroLevelLabel2.Text = "Level: " + h2Level;
+                    heroLevelLabel3.Text = "Level: " + h3Level;
+                    heroUpCostLabel1.Text = "Level up " + h1Cost;
+                    heroUpCostLabel2.Text = "Level up " + h2Cost;
+                    heroUpCostLabel3.Text = "Level up " + h3Cost;
+                    currentRoundLabel.Text = "Wave " + currentLvl;
+                    totalDPSLabel.Text = "Total DPS: " + (hDps1 + hDps2 + hDps3);
+                });
+            }
         }
 
         private void UpdateThread()
@@ -289,7 +306,7 @@ namespace AFK_Heroes
                 currentRound = currentRound + 1;
                 if (coinStarted == false)
                 {
-                    StartCoinMoveThread(true);
+                   // StartCoinMoveThread(true);
                     coinStarted = true;
                 }
                 coinIsMoving = true;
@@ -395,12 +412,18 @@ namespace AFK_Heroes
             {
                 if (currentCoins >= FindUpgradeCost(1))
                 {
-                    currentCoins = currentCoins - FindUpgradeCost(1);
-                    HeroOne.UpdateDPS();
-                    HeroOne.SetLevel(1);
-                    heroDpsLabel1.Text = "DPS: " + HeroOne.GetDPS();
-                    heroLevelLabel1.Text = "Level: " + HeroOne.GetLevel();
-                    heroUpCostLabel1.Text = "Level up " + FindUpgradeCost(1);     
+                    if (mainGameWorker.IsBusy)
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            currentCoins = currentCoins - FindUpgradeCost(1);
+                            HeroOne.UpdateDPS();
+                            HeroOne.SetLevel(1);
+                            heroDpsLabel1.Text = "DPS: " + HeroOne.GetDPS();
+                            heroLevelLabel1.Text = "Level: " + HeroOne.GetLevel();
+                            heroUpCostLabel1.Text = "Level up " + FindUpgradeCost(1);
+                        });
+                    }
                 }
             }
 
@@ -408,12 +431,18 @@ namespace AFK_Heroes
             {
                 if (currentCoins >= FindUpgradeCost(2))
                 {
-                    currentCoins = currentCoins - FindUpgradeCost(2);
-                    HeroTwo.UpdateDPS();
-                    HeroTwo.SetLevel(1);
-                    heroDpsLabel2.Text = "DPS: " + HeroTwo.GetDPS();
-                    heroLevelLabel2.Text = "Level: " + HeroTwo.GetLevel();
-                    heroUpCostLabel2.Text = "Level up " + FindUpgradeCost(2);
+                    if (mainGameWorker.IsBusy)
+                    {
+                        Invoke((MethodInvoker)delegate
+                    {
+                        currentCoins = currentCoins - FindUpgradeCost(2);
+                        HeroTwo.UpdateDPS();
+                        HeroTwo.SetLevel(1);
+                        heroDpsLabel2.Text = "DPS: " + HeroTwo.GetDPS();
+                        heroLevelLabel2.Text = "Level: " + HeroTwo.GetLevel();
+                        heroUpCostLabel2.Text = "Level up " + FindUpgradeCost(2);
+                    });
+                    }
                 }
             }
 
@@ -421,12 +450,18 @@ namespace AFK_Heroes
             {
                 if (currentCoins >= FindUpgradeCost(3))
                 {
-                    currentCoins = currentCoins - FindUpgradeCost(3);
-                    HeroThree.UpdateDPS();
-                    HeroThree.SetLevel(1);
-                    heroDpsLabel3.Text = "DPS: " + HeroThree.GetDPS();
-                    heroLevelLabel3.Text = "Level: " + HeroThree.GetLevel();
-                    heroUpCostLabel3.Text = "Level up " + FindUpgradeCost(3);
+                    if (mainGameWorker.IsBusy)
+                    {
+                        Invoke((MethodInvoker)delegate
+                    {
+                        currentCoins = currentCoins - FindUpgradeCost(3);
+                        HeroThree.UpdateDPS();
+                        HeroThree.SetLevel(1);
+                        heroDpsLabel3.Text = "DPS: " + HeroThree.GetDPS();
+                        heroLevelLabel3.Text = "Level: " + HeroThree.GetLevel();
+                        heroUpCostLabel3.Text = "Level up " + FindUpgradeCost(3);
+                    });
+                    }
                 }
             }
         }
@@ -531,5 +566,16 @@ namespace AFK_Heroes
                 runningTimeLabel.Text = "Run time " + RunningTime.Elapsed.Hours.ToString() + ":" + RunningTime.Elapsed.Minutes.ToString() + ":" + RunningTime.Elapsed.Seconds.ToString();
             }
          }
+
+        private void mainGameWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            UpdateThread();
+        }
+
+        private void coinWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            MoveCoinInfo();
+        }
+
     }
 }

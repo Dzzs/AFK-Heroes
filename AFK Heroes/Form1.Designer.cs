@@ -62,6 +62,8 @@
             this.afkModeCheckBox = new System.Windows.Forms.CheckBox();
             this.runningTimeLabel = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.mainGameWorker = new System.ComponentModel.BackgroundWorker();
+            this.coinWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.heroBox3)).BeginInit();
@@ -398,6 +400,16 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // mainGameWorker
+            // 
+            this.mainGameWorker.WorkerSupportsCancellation = true;
+            this.mainGameWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.mainGameWorker_DoWork);
+            // 
+            // coinWorker
+            // 
+            this.coinWorker.WorkerSupportsCancellation = true;
+            this.coinWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.coinWorker_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -484,6 +496,8 @@
         private System.Windows.Forms.CheckBox afkModeCheckBox;
         private System.Windows.Forms.Label runningTimeLabel;
         private System.Windows.Forms.Timer timer1;
+        private System.ComponentModel.BackgroundWorker mainGameWorker;
+        private System.ComponentModel.BackgroundWorker coinWorker;
     }
 }
 
